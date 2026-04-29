@@ -12,6 +12,31 @@ export class OmlRestClient {
     async validate() {
         return this.request("POST", "/v0/validate", undefined);
     }
+    async listModels() {
+        return this.request("GET", "/v0/models", undefined);
+    }
+    async fuzzySearch(text, limit) {
+        const body = { text };
+        if (limit !== undefined)
+            body.limit = limit;
+        return this.request("POST", "/v0/fuzzysearch", body);
+    }
+    async update(operations, referencingUri) {
+        const body = { operations };
+        if (referencingUri)
+            body.referencingUri = referencingUri;
+        return this.request("POST", "/v0/update", body);
+    }
+    async assertions(modelUri, format, pretty) {
+        const body = {};
+        if (modelUri)
+            body.modelUri = modelUri;
+        if (format)
+            body.format = format;
+        if (pretty !== undefined)
+            body.pretty = pretty;
+        return this.request("POST", "/v0/assertions", Object.keys(body).length > 0 ? body : undefined);
+    }
     async request(method, path, body) {
         const url = `${this.baseUrl}${path}`;
         try {

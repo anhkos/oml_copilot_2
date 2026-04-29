@@ -15,6 +15,30 @@ export class OmlRestClient {
     return this.request("POST", "/v0/validate", undefined);
   }
 
+  async listModels(): Promise<RestResult<unknown>> {
+    return this.request("GET", "/v0/models", undefined);
+  }
+
+  async fuzzySearch(text: string, limit?: number): Promise<RestResult<unknown>> {
+    const body: Record<string, unknown> = { text };
+    if (limit !== undefined) body.limit = limit;
+    return this.request("POST", "/v0/fuzzysearch", body);
+  }
+
+  async update(operations: unknown[], referencingUri?: string): Promise<RestResult<unknown>> {
+    const body: Record<string, unknown> = { operations };
+    if (referencingUri) body.referencingUri = referencingUri;
+    return this.request("POST", "/v0/update", body);
+  }
+
+  async assertions(modelUri?: string, format?: string, pretty?: boolean): Promise<RestResult<unknown>> {
+    const body: Record<string, unknown> = {};
+    if (modelUri) body.modelUri = modelUri;
+    if (format) body.format = format;
+    if (pretty !== undefined) body.pretty = pretty;
+    return this.request("POST", "/v0/assertions", Object.keys(body).length > 0 ? body : undefined);
+  }
+
   private async request(method: string, path: string, body: unknown): Promise<RestResult<unknown>> {
     const url = `${this.baseUrl}${path}`;
     try {
