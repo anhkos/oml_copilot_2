@@ -135,9 +135,14 @@ async function resolveRestBaseUrl(
 }
 
 function lockFileForWorkspace(workspaceRoot: string): string {
-  const canonical = path.resolve(workspaceRoot).toLowerCase();
+  const canonical = canonicalPath(workspaceRoot);
   const hash = createHash("sha256").update(canonical).digest("hex");
   return path.join(os.homedir(), ".oml", "workspaces", hash, "server.lock");
+}
+
+// VS Code on Windows preserves the drive letter case from path.resolve() (uppercase).
+function canonicalPath(p: string): string {
+  return path.resolve(p);
 }
 
 export function formatStartupStatus(status: StartupStatus): string[] {

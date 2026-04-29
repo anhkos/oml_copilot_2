@@ -95,9 +95,13 @@ async function resolveRestBaseUrl(workspaceRoot, checks, strictMode) {
     return `http://127.0.0.1:${lock.port}`;
 }
 function lockFileForWorkspace(workspaceRoot) {
-    const canonical = path.resolve(workspaceRoot).toLowerCase();
+    const canonical = canonicalPath(workspaceRoot);
     const hash = createHash("sha256").update(canonical).digest("hex");
     return path.join(os.homedir(), ".oml", "workspaces", hash, "server.lock");
+}
+// VS Code on Windows preserves the drive letter case from path.resolve() (uppercase).
+function canonicalPath(p) {
+    return path.resolve(p);
 }
 export function formatStartupStatus(status) {
     const lines = [];
