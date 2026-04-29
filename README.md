@@ -24,23 +24,6 @@ npm run build
 
 Compiles TypeScript to `dist/`. The entry point is `dist/index.js`.
 
-## Startup validation
-
-On startup, before connecting to the MCP transport, the server runs a series of checks:
-
-| Check | Level | Description |
-|---|---|---|
-| `workspace.omlDir` | error | `.oml/` directory must exist at the workspace root |
-| `workspace.omlYml` | warning | `oml.yml` at the workspace root (optional) |
-| `workspace.catalogXml` | warning | `catalog.xml` at the workspace root (optional) |
-| `workspace.omlFiles` | warning | At least one `.oml` file found under the workspace |
-| `server.lockFile` | error | Lock file found and workspace matches |
-| `rest.health` | error | REST server reachable at `/health` |
-| `rest.workspaceRoot` | error | REST server's workspace matches local workspace |
-| `rest.models` | error | `/v0/models` returns files that match local paths |
-
-In strict mode (default), any `error`-level check aborts startup. In non-strict mode, all failures become warnings and startup continues.
-
 ## Environment variables
 
 | Variable | Default | Description |
