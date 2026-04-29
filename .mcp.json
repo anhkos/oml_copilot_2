@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "oml-copilot-mcp": {
+      "command": "node",
+      "args": ["C:\\Users\\sokhn\\OneDrive\\Documents\\GitHub\\oml_copilot_2\\dist\\index.js"]
+    }
+  }
+}

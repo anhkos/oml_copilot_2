@@ -1,0 +1,20 @@
+{
+  "name": "oml-copilot-mcp",
+  "version": "0.1.0",
+  "description": "MCP server wrapper for the Ontological Modeling Language (OML) Copilot",
+  "type": "module",
+  "bin": {
+    "oml-copilot-mcp": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.17.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "typescript": "^5.7.2"
+  }
+}
